@@ -90,7 +90,3 @@ export const removeColor = (color, setter) => {
     	});
 };
 
-
-
-
-
