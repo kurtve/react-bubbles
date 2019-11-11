@@ -56,8 +56,22 @@ export const getColors = (setter) => {
     	.catch(err => {
     		console.log(err.response.data.error);
     	});
+};
 
 
+// update a color on the server
+export const updateColor = (color, setter) => {
+	apiWithAuth()
+    	.put(`/api/colors/${color.id}`, color)
+    	.then(res => {
+    		// on success, the server returns only the updated color
+    		// we need to update the whole list
+        	getColors(setter);
+    	})
+    	.catch(err => {
+    		// todo: add some error handling here!
+    		console.log(err);
+    	});
 };
 
 
