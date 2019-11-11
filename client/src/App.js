@@ -51,7 +51,8 @@ const App = () => {
       <BubbleContext.Provider value={ {bubbleState, setState} } >
         <AppWrapper>
           <h1>Welcome to the Bubble App!</h1>
-          <Route exact path="/" component={Login} />
+          {/* only show login page if we are not logged in */}
+          {!bubbleState.token && ( <Route exact path="/" component={Login} /> )}
 
         </AppWrapper>
       </BubbleContext.Provider>
