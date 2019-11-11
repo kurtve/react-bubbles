@@ -17,9 +17,6 @@ const App = () => {
 
   const [bubbleState, setState] = useState(initialState);
 
-  console.log(bubbleState);
-
-
   return (
     <Router>
       <BubbleContext.Provider value={ {bubbleState, setState} } >

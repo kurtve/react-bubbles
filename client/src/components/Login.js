@@ -111,8 +111,6 @@ const Login = (props) => {
 
 	// if we successfully logged in, go to bubble display
 	if (getToken()) {
-		console.log('redirecting to "/bubbles"');
-
 		return  (<Redirect to='/bubbles' />);
 	}
 

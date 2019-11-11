@@ -28,6 +28,7 @@ export const apiWithAuth = () => {
 };
 
 
+// log in to the server. not authorized yet so don't use apiWithAuth
 export const login = (credentials, errorSetter) => {
 
 	axios.post(`${baseURL}/api/login`, credentials)
@@ -43,4 +44,23 @@ export const login = (credentials, errorSetter) => {
 			}
 		});
 };
+
+
+// get colors from server
+export const getColors = (setter) => {
+	apiWithAuth()
+    	.get('/api/colors')
+    	.then(res => {
+        	setter(res.data);
+    	})
+    	.catch(err => {
+    		console.log(err.response.data.error);
+    	});
+
+
+};
+
+
+
+
 
