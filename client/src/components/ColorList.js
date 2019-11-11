@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateColor } from "../utils/api";
+import { updateColor, removeColor } from "../utils/api";
 
 const initialColor = {
   color: "",
@@ -19,10 +19,11 @@ const ColorList = ({ colors, updateColors }) => {
   const saveEdit = e => {
     e.preventDefault();
     updateColor(colorToEdit, updateColors);
+    setEditing(false);
   };
 
   const deleteColor = color => {
-    // make a delete request to delete this color
+    removeColor(color, updateColors);
   };
 
   return (

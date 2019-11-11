@@ -75,6 +75,22 @@ export const updateColor = (color, setter) => {
 };
 
 
+// delete a color from the server
+export const removeColor = (color, setter) => {
+	apiWithAuth()
+    	.delete(`/api/colors/${color.id}`)
+    	.then(res => {
+    		// on success, the server returns only the deleted color id
+    		// we need to update the whole list
+        	getColors(setter);
+    	})
+    	.catch(err => {
+    		// todo: add some error handling here!
+    		console.log(err);
+    	});
+};
+
+
 
 
 
