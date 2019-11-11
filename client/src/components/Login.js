@@ -1,9 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
-import { BubbleContext } from '../contexts/BubbleContext';
 
-import { login } from '../utils/api';
+import { login, getToken } from '../utils/api';
 
 
 const LoginWrapper = styled.div`
@@ -11,16 +10,22 @@ const LoginWrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-top: 10px;
+	width: 100%;
 
 	text-align: center;
 
+	h1 {
+    	font-size: 40px;
+    	margin: 20px;
+	} 
+
 	h3 {
-		font-size: 2.6rem;
+		font-size: 30px;
 		margin: 20px;
 	}
 
 	.error {
-		font-size: 2rem;
+		font-size: 16px;
 		color: red;
 	}
 
@@ -36,7 +41,7 @@ const LoginWrapper = styled.div`
 	}
 
 	label {
-		font-size: 1.4rem;
+		font-size: 14px;
 		font-style: italic;
 	}
 
@@ -49,7 +54,7 @@ const LoginWrapper = styled.div`
 	}
 
 	input {
-		font-size: 1.4rem;
+		font-size: 14px;
 		margin: 5px;
 		padding: 5px;
 		width: 150px;
@@ -63,7 +68,7 @@ const LoginWrapper = styled.div`
 		border: none;
 		border-radius: 5px;
 		width: 60px;
-		font-size: 1.4rem;
+		font-size: 14px;
 		margin-top: 10px;
 
 		&:hover {
@@ -77,8 +82,6 @@ const LoginWrapper = styled.div`
 
 
 const Login = (props) => {
-
-	const { bubbleState, setState } = useContext(BubbleContext);
 
 	const [error, setError] = useState();
 
@@ -101,18 +104,21 @@ const Login = (props) => {
 		if (!(data.username && data.password)) {
 			setError('You must supply a username and password!');
 		} else {
-			login(data, setError, bubbleState, setState);
+			login(data, setError);
 		}
 	};
 
 
 	// if we successfully logged in, go to bubble display
-	if (bubbleState.token) {
+	if (getToken()) {
+		console.log('redirecting to "/bubbles"');
+
 		return  (<Redirect to='/bubbles' />);
 	}
 
 	return (
 		<LoginWrapper>
+	        <h1>Welcome to the Bubble App!</h1>
 			<h3>Login Page</h3>
 
 			{error && <div className='error'>{error}</div>}

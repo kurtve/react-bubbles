@@ -28,13 +28,12 @@ export const apiWithAuth = () => {
 };
 
 
-export const login = (credentials, errorSetter, bubbleState, setState) => {
+export const login = (credentials, errorSetter) => {
 
 	axios.post(`${baseURL}/api/login`, credentials)
 		.then(res => {
 			setToken(res.data.payload);
 			errorSetter('');
-			setState( {...bubbleState, token: res.data.payload });
 		})
 		.catch(err => {
 			if (err.response.status === 403) {
